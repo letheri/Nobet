@@ -25,17 +25,17 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               import: false,
-              modules: true
-            }
-          }
+              modules: true,
+            },
+          },
         ],
-        include: /\.module\.css$/
-      }
+        include: /\.module\.css$/,
+      },
     ],
   },
   plugins: [
