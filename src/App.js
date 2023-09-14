@@ -23,7 +23,7 @@ const SCHEDULE = ["Gündüz", "Gece", "İzin", "İzin"];
 const TODAY = new Date();
 
 export default function App() {
-  const [startDay, setStartDay] = useState("2023-08-28");
+  const [startDay, setStartDay] = useState("2023-09-13");
   const [month, setMonth] = useState(new Date());
   const [schedule, setSchedule] = useState([]);
 
