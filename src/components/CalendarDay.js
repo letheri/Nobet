@@ -22,8 +22,8 @@ const CalendarDay = function (props) {
           </Typography>
           <Chip
             label={props.schedule}
-            icon={<p>{dayDetails.emo}</p>}
-            color={dayDetails.color}
+            icon={<p>{dayDetails?.emo}</p>}
+            color={dayDetails?.color}
             variant="outlined"
           />
         </Stack>

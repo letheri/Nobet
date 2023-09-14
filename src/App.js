@@ -23,8 +23,8 @@ const SCHEDULE = ["Gündüz", "Gece", "İzin", "İzin"];
 const TODAY = new Date();
 
 export default function App() {
-  const [startDay, setStartDay] = useState("2023-09-13");
-  const [month, setMonth] = useState(new Date());
+  const [startDay, setStartDay] = useState("2022-12-31");
+  const [month, setMonth] = useState(TODAY);
   const [schedule, setSchedule] = useState([]);
 
   function calculateSchedule(date) {
@@ -43,7 +43,7 @@ export default function App() {
 
   function changeMonth(increment) {
     const newDate = new Date(month);
-    newDate.setDate(newDate.getMonth() + increment);
+    newDate.setMonth(newDate.getMonth() + increment);
     setMonth(newDate);
   }
 
@@ -54,12 +54,22 @@ export default function App() {
       month.getMonth() + 1,
       0
     );
+    const firstWeekDayCount = (7 - firstDateOfMonth.getDay() + 1) % 7;
+    const lastWeekDayCount = lastDateOfMonth.getDay();
+    let weekCount = Math.ceil(
+      (lastDateOfMonth.getDate() - firstWeekDayCount) / 7
+    );
+    firstWeekDayCount !== 0 && weekCount++;
+    const lastDateOfPreviousMonth = new Date(
+      month.getFullYear(),
+      month.getMonth(),
+      0
+    );
     const firstDayOfCalendar = new Date(
       month.getFullYear(),
-      month.getMonth() + 1,
-      1 - lastDateOfMonth.getDay()
+      month.getMonth(),
+      1 - lastDateOfPreviousMonth.getDay()
     );
-    const weekCount = Math.ceil(lastDateOfMonth.getDate() / 7);
     let day = firstDayOfCalendar;
     const monthlySchedule = [];
     for (let week = 0; week < weekCount; week++) {
@@ -68,9 +78,9 @@ export default function App() {
         weeklySchedule.push({ date: day, schedule: calculateSchedule(day) });
         day = nextDay(day);
       }
-      monthlySchedule.push(weeklySchedule)
+      monthlySchedule.push(weeklySchedule);
     }
-    setSchedule(monthlySchedule);
+    setSchedule((pre) => monthlySchedule);
   }, [month]);
 
   return (
